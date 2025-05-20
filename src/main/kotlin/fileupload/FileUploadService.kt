@@ -28,7 +28,7 @@ class FileUploadService(private val uploadPath: String = DEFAULT_UPLOAD_DIR) {
     }
 
     suspend fun handleMultipart(call: ApplicationCall) {
-        val multipart = call.receiveMultipart()
+        val multipart = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 50) // 10 MB limit
 
         multipart.forEachPart { part ->
             when (part) {
@@ -39,17 +39,13 @@ class FileUploadService(private val uploadPath: String = DEFAULT_UPLOAD_DIR) {
         }
     }
 
-    private fun uploadMultipartFile(part: PartData.FileItem) {
+    private suspend fun uploadMultipartFile(part: PartData.FileItem) {
         val fileName = sanitizeFilename(part.originalFileName ?: "uploaded_file")
         val file = File(uploadPath, fileName)
 
         logger.info("Saving file: ${file.absolutePath}")
 
-        part.provider().toInputStream().use { inputStream ->
-            file.outputStream().buffered().use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
-        }
+        part.provider().copyAndClose(file.writeChannel())
     }
 
     private fun sanitizeFilename(name: String): String =
