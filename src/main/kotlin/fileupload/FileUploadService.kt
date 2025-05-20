@@ -8,7 +8,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
-import io.ktor.utils.io.jvm.javaio.*
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -62,7 +61,7 @@ fun Route.configureFileUploadRoutes(service: FileUploadService) {
             .onSuccess { call.respond(HttpStatusCode.OK, "File uploaded successfully.") }
             .onFailure {
                 serviceErrorLogger(it)
-                call.respond(HttpStatusCode.InternalServerError, "Failed to upload file.")
+                throw IllegalStateException("Failed to upload file.")
             }
     }
 
@@ -71,7 +70,7 @@ fun Route.configureFileUploadRoutes(service: FileUploadService) {
             .onSuccess { call.respond(HttpStatusCode.OK, "Files uploaded successfully.") }
             .onFailure {
                 serviceErrorLogger(it)
-                call.respond(HttpStatusCode.InternalServerError, "Failed to upload files.")
+                throw IllegalStateException("Failed to upload files.")
             }
     }
 }
