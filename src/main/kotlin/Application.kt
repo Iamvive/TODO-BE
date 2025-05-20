@@ -11,6 +11,6 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureSerialization()
+    configureResources() // Resource configuration should be done before routing
     configureRouting()
-    configureResources()
 }
