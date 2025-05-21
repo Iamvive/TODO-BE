@@ -10,6 +10,7 @@ fun main(args: Array<String>) {
 fun Application.module() {
     configureRateLimiting()
     configureSerialization()
+    configureRequestValidation()
     configureResources() // Resource configuration should be done before routing
     configureRouting()
     configureStatusPages()
