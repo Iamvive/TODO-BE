@@ -40,6 +40,16 @@ fun Application.configureStatusPages() {
             )
         }
 
+        status(HttpStatusCode.TooManyRequests) { call, httpStatusCode ->
+             call.respond(
+                httpStatusCode,
+                ErrorResponse(
+                    errorCode = "TOO_MANY_REQUESTS",
+                    errorMessage = "Rate limit exceeded"
+                )
+            )
+        }
+
     }
 }
 

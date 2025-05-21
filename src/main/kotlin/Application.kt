@@ -1,9 +1,6 @@
 package com.appworx
 
-import com.appworx.plugins.configureResources
-import com.appworx.plugins.configureRouting
-import com.appworx.plugins.configureSerialization
-import com.appworx.plugins.configureStatusPages
+import com.appworx.plugins.*
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -11,6 +8,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+    configureRateLimiting()
     configureSerialization()
     configureResources() // Resource configuration should be done before routing
     configureRouting()
