@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
@@ -18,6 +17,8 @@ repositories {
 
 dependencies {
     implementation(libs.ktor.server.core)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.apache)
     implementation(libs.ktor.server.netty)
     implementation(libs.logback.classic)
     implementation(libs.ktor.serialization.kotlinx.json)
@@ -26,6 +27,7 @@ dependencies {
     implementation(libs.ktor.server.status.pages)
     implementation(libs.ktor.server.rate.limit)
     implementation(libs.ktor.server.request.validation)
+    implementation(libs.ktor.server.auth)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }

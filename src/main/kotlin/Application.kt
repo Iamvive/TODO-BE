@@ -1,6 +1,7 @@
 package com.appworx
 
 import com.appworx.plugins.*
+import com.appworx.plugins.auth.configureAuthentications
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -8,6 +9,7 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
+    configureAuthentications()
     configureRateLimiting()
     configureSerialization()
     configureRequestValidation()
