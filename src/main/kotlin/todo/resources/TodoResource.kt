@@ -4,10 +4,10 @@ import io.ktor.resources.*
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Resource("/todos")
+@Resource("/todo")
 data class Todos(val filter: String? = null)
 
 @Serializable
-@Resource("/todos/{id}")
+@Resource("/todo/{id}")
 data class TodoById(val id: String)
 
